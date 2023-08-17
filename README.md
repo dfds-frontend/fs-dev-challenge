@@ -1,28 +1,51 @@
-# Create T3 App
+# Fullstack code challenge
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+The task of this code challenge is to add functionality described below to this existing sample application: https://github.com/dfds-frontend/fs-dev-challenge. The application is built using NextJS, Typescript, Prisma, React Query Tailwind, zod and https://ui.shadcn.com/ for ready-made components. It is expected that you will complete the below tasks using the technologies listed.
 
-## What's next? How do I make an app with this?
+The challenge consists of a variety of frontend, backend and data modeling tasks. We invite you to tailor your implementation as close to the description as possible, otherwise be sure to document deviations if any. 
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Task 1 - Create new voyage
+At the root of the application, place a button “Create” on the top left of the list of mock voyages.
+When pressed, the button should open https://ui.shadcn.com/docs/components/sheet with the form for creating a voyage inside
+The form should have the following validations:
+All fields are required
+Departure date and time should be before arrival date and time
+Refresh the list of voyages once a voyage has been successfully created
+Display https://ui.shadcn.com/docs/components/toast with a success message.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Task 2 - Introduce Unit data model
+A unit or a freight unit is a vehicle that can be transported on a ferry. 
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+The model should have the following properties:
+type which can be one of the following: Car, Van, Truck
+length
+registration number
 
-## Learn More
+Additionally, a unit should be linked to voyage through a many-to-one relationship. 
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+It is not necessary to generate a migration, it is sufficient just to “push” the new model to the database. 
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Finally, when the model is in the database, be sure to update the seed.ts file to create some units for each voyage. 
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Task 3 - List units
+Add a new column in the voyage table called “units” and for each voyage display the number of units associated with that voyage.
+Create an endp
+When a user clicks on a voyage, they are taken to the unit list. 
+At the top of the screen, there should be information about the voyage:
+Route
+Name of the ferry
+Departure time
+The list should display the unit sequence number (1, 2, 3 etc.) , unit type, it’s length and registration number.
+It should be possible to delete a unit similar to how it is possible to delete a voyage. 
 
-## How do I deploy this?
+## Task 4 - Add a unit
+Between the route information and the list of units, on the top left corner of the unit list, add a button “Add unit”
+When pressed, the button should open https://ui.shadcn.com/docs/components/sheet with the form for adding a unit to the voyage inside
+The form should have the following validations:
+All fields are required
+There should not be two units with the same registration number on the same voyage
+Refresh the unit list once the unit has been successfully created.
+Display https://ui.shadcn.com/docs/components/toast with a success message.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Task 5 - Handling voyage deletion error
+You may have noticed that deleting a voyage does not always work. Add error handling to inform the user when that happens. It is sufficient to show https://ui.shadcn.com/docs/components/toast with the appropriate error message. 
