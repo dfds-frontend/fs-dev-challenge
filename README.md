@@ -29,7 +29,6 @@ Finally, when the model is in the database, be sure to update the seed.ts file t
 
 ## Task 3 - List units
 Add a new column in the voyage table called “units” and for each voyage display the number of units associated with that voyage.
-Create an endp
 When a user clicks on a voyage, they are taken to the unit list. 
 At the top of the screen, there should be information about the voyage:
 Route
