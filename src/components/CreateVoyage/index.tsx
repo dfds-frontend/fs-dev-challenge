@@ -1,6 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
+import CreateVoyageForm from "./CreateVoyageForm";
 
 export const CreateVoyage = () => {
   const queryClient = useQueryClient();
@@ -38,6 +49,22 @@ export const CreateVoyage = () => {
       <Button title="Create Voyage" onClick={handleCreate}>
         Create Voyage
       </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline">Open Sheet</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Create Voyage</SheetTitle>
+          </SheetHeader>
+          <CreateVoyageForm />
+          {/* <SheetFooter>
+            <SheetClose asChild>
+              <Button type="submit">Create</Button>
+            </SheetClose>
+          </SheetFooter> */}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
