@@ -14,12 +14,15 @@ import { fetchData } from "~/utils";
 import type { ReturnType } from "./api/voyage/getAll";
 import { Button } from "~/components/ui/button";
 import { TABLE_DATE_FORMAT } from "~/constants";
+import { toast } from "~/components/ui/use-toast";
+import { CreateVoyage } from "~/components/CreateVoyage";
 
 export default function Home() {
   const { data: voyages } = useQuery<ReturnType>(["voyages"], () =>
     fetchData("voyage/getAll")
   );
 
+  console.log("voyages***", voyages);
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async (voyageId: string) => {
@@ -28,6 +31,11 @@ export default function Home() {
       });
 
       if (!response.ok) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: `Failed to delete the voyage ${voyageId}`,
+        });
         throw new Error("Failed to delete the voyage");
       }
     },
@@ -37,6 +45,11 @@ export default function Home() {
       },
     }
   );
+  // const createVoyage = useMutation({
+  //   mutationFn: (newTodo) => {
+  //     return axios.post("/todos", newTodo);
+  //   },
+  // });
 
   const handleDelete = (voyageId: string) => {
     mutation.mutate(voyageId);
@@ -49,6 +62,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
+        <CreateVoyage />
         <Table>
           <TableHeader>
             <TableRow>
@@ -62,7 +76,10 @@ export default function Home() {
           </TableHeader>
           <TableBody>
             {voyages?.map((voyage) => (
-              <TableRow key={voyage.id}>
+              <TableRow
+                key={voyage.id}
+                onClick={() => console.log("Voyage Clicked***")} // to do Harshit
+              >
                 <TableCell>
                   {format(
                     new Date(voyage.scheduledDeparture),
@@ -75,13 +92,9 @@ export default function Home() {
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
                 <TableCell>{voyage.vessel.name}</TableCell>
+                {/* <TableCell>{voyage.unit}</TableCell> */}
                 <TableCell>
-                  <Button
-                    onClick={() => handleDelete(voyage.id)}
-                    variant="outline"
-                  >
-                    X
-                  </Button>
+                  <Button onClick={() => handleDelete(voyage.id)}>X</Button>
                 </TableCell>
               </TableRow>
             ))}
