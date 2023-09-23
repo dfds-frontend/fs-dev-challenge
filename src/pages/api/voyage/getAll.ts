@@ -8,6 +8,7 @@ const handler: NextApiHandler = async (_, res: NextApiResponse<ReturnType>) => {
   const voyages = await prisma.voyage.findMany({
     include: {
       vessel: {},
+      units: {},
     },
   });
 

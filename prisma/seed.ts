@@ -15,9 +15,7 @@ async function main() {
       name: "Pearl Seaways",
     },
   });
-  const unit = { type: "Car", length: "100", registrationNumber: "2023444" };
-  const units = [];
-  units.push(unit);
+
   // Seeding voyages
   for (let i = 0; i < 10; i++) {
     const departingFromCopenhagenVessel =
@@ -31,8 +29,8 @@ async function main() {
     const scheduledArrival = startOfHour(
       setHours(addDays(new Date(), i + 1), 9)
     );
+    const registrationNumber = `2023444A${Math.random()}${i}`;
 
-    // const unit = "one";
     await prisma.voyage.create({
       data: {
         portOfLoading: "Copenhagen",
@@ -40,6 +38,13 @@ async function main() {
         vesselId: departingFromCopenhagenVessel,
         scheduledDeparture,
         scheduledArrival,
+        units: {
+          create: {
+            registrationNumber: registrationNumber,
+            type: "Car",
+            length: "100",
+          },
+        },
       },
     });
 
@@ -50,6 +55,20 @@ async function main() {
         vesselId: departingFromOsloVessel,
         scheduledDeparture,
         scheduledArrival,
+        units: {
+          create: [
+            {
+              registrationNumber: registrationNumber,
+              type: "Van",
+              length: "50",
+            },
+            {
+              registrationNumber: registrationNumber,
+              type: "Truck",
+              length: "200",
+            },
+          ],
+        },
       },
     });
   }

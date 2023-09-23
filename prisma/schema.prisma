@@ -33,9 +33,10 @@ model Voyage {
 }
 
 model Unit {
-  voyageId           String  @id @default(cuid())
-  type               String
+  id                 String   @id @default(cuid())
+  voyageId           String  
+  type               String  
   length             String
-  registrationNumber String  @unique
+  registrationNumber String  
   Voyage             Voyage  @relation(fields: [voyageId], references: [id])  
 }
