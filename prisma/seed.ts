@@ -46,6 +46,9 @@ async function main() {
           },
         },
       },
+      include: {
+        units: true,
+      },
     });
 
     await prisma.voyage.create({
@@ -69,6 +72,9 @@ async function main() {
             },
           ],
         },
+      },
+      include: {
+        units: true,
       },
     });
   }

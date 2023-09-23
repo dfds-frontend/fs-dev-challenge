@@ -45,11 +45,6 @@ export default function Home() {
       },
     }
   );
-  // const createVoyage = useMutation({
-  //   mutationFn: (newTodo) => {
-  //     return axios.post("/todos", newTodo);
-  //   },
-  // });
 
   const handleDelete = (voyageId: string) => {
     mutation.mutate(voyageId);
@@ -71,6 +66,7 @@ export default function Home() {
               <TableHead>Port of loading</TableHead>
               <TableHead>Port of discharge</TableHead>
               <TableHead>Vessel</TableHead>
+              <TableHead>Unit</TableHead>
               <TableHead>&nbsp;</TableHead>
             </TableRow>
           </TableHeader>
@@ -92,7 +88,7 @@ export default function Home() {
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
                 <TableCell>{voyage.vessel.name}</TableCell>
-                {/* <TableCell>{voyage.unit}</TableCell> */}
+                <TableCell>{voyage.units.length}</TableCell>
                 <TableCell>
                   <Button onClick={() => handleDelete(voyage.id)}>X</Button>
                 </TableCell>
