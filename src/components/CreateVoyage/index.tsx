@@ -12,8 +12,10 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import CreateVoyageForm from "./CreateVoyageForm";
+import React from "react";
 
 export const CreateVoyage = () => {
+  const [open, setOpen] = React.useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async () => {
@@ -49,7 +51,7 @@ export const CreateVoyage = () => {
       <Button title="Create Voyage" onClick={handleCreate}>
         Create Voyage
       </Button>
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant="outline">Open Sheet</Button>
         </SheetTrigger>
@@ -57,7 +59,7 @@ export const CreateVoyage = () => {
           <SheetHeader>
             <SheetTitle>Create Voyage</SheetTitle>
           </SheetHeader>
-          <CreateVoyageForm />
+          <CreateVoyageForm setOpen={setOpen} />
           {/* <SheetFooter>
             <SheetClose asChild>
               <Button type="submit">Create</Button>
