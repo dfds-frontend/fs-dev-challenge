@@ -12,7 +12,6 @@ import { Button } from "../ui/button";
 
 const VoyageDetails = ({ voyageData }: { voyageData: any | undefined }) => {
   const { vessel, units } = voyageData;
-  console.log("units***", units);
 
   return (
     <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center justify-center px-2">

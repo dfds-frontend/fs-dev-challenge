@@ -24,7 +24,6 @@ import {
   SheetTitle,
   Sheet,
 } from "~/components/ui/sheet";
-import type { Voyage } from "@prisma/client";
 import VoyageDetails from "~/components/VoyageDetails";
 export default function Home() {
   const [openVoyageDetail, setOpenVoyageDetail] = React.useState(false);
@@ -117,7 +116,6 @@ export default function Home() {
           </SheetTrigger>
           <SheetContent side="top">
             <SheetHeader>
-              {/* <SheetTitle>Voyage Details</SheetTitle> */}
               <VoyageDetails voyageData={voyageData} />
             </SheetHeader>
           </SheetContent>
