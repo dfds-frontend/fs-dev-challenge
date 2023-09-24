@@ -82,14 +82,7 @@ export default function Home() {
           </TableHeader>
           <TableBody>
             {voyages?.map((voyage) => (
-              <TableRow
-                key={voyage.id}
-                onClick={() => {
-                  setVoyageData(voyage);
-                  setOpenVoyageDetail(true);
-                  console.log("Voyage Clicked***", voyageData);
-                }} // to do Harshit
-              >
+              <TableRow key={voyage.id}>
                 <TableCell>
                   {format(
                     new Date(voyage.scheduledDeparture),
@@ -101,22 +94,38 @@ export default function Home() {
                 </TableCell>
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
-                <TableCell>{voyage.vessel.name}</TableCell>
+                <TableCell
+                  className="underline"
+                  onClick={() => {
+                    setVoyageData(voyage);
+                    setOpenVoyageDetail(true);
+                    console.log("Voyage Clicked***", voyageData);
+                  }}
+                >
+                  {voyage.vessel.name}
+                </TableCell>
                 <TableCell>{voyage.units.length}</TableCell>
                 <TableCell>
-                  <Button onClick={() => handleDelete(voyage.id)}>X</Button>
+                  <Button
+                    onClick={(e) => {
+                      handleDelete(voyage.id);
+                    }}
+                  >
+                    X
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <Sheet open={openVoyageDetail} onOpenChange={setOpenVoyageDetail}>
-          <SheetTrigger asChild>
-            <Button variant="outline">Open Sheet</Button>
-          </SheetTrigger>
+          <SheetTrigger asChild></SheetTrigger>
           <SheetContent side="top">
             <SheetHeader>
-              <VoyageDetails voyageData={voyageData} />
+              <VoyageDetails
+                voyageData={voyageData}
+                setOpenVoyageDetail={setOpenVoyageDetail}
+              />
             </SheetHeader>
           </SheetContent>
         </Sheet>

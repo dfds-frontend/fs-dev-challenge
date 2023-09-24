@@ -48,23 +48,18 @@ export const CreateVoyage = () => {
   };
   return (
     <div className="self-start py-2">
-      <Button title="Create Voyage" onClick={handleCreate}>
+      {/* <Button title="Create Voyage" onClick={handleCreate}>
         Create Voyage
-      </Button>
+      </Button> */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="outline">Open Sheet</Button>
+          <Button variant="outline">Create Voyage</Button>
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Create Voyage</SheetTitle>
           </SheetHeader>
           <CreateVoyageForm setOpen={setOpen} />
-          {/* <SheetFooter>
-            <SheetClose asChild>
-              <Button type="submit">Create</Button>
-            </SheetClose>
-          </SheetFooter> */}
         </SheetContent>
       </Sheet>
     </div>
