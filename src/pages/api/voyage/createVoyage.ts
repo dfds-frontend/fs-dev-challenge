@@ -10,6 +10,7 @@ const handler: NextApiHandler = async (
   res: NextApiResponse<undefined>
 ) => {
   if (req.method === "POST") {
+    //const createVoyage = await prisma.voyage.create(JSON.parse(req.body));
     const createVoyage = await prisma.voyage.create({
       data: {
         portOfLoading: "Copenhagen",
@@ -17,6 +18,16 @@ const handler: NextApiHandler = async (
         vesselId: "clmueiyyv0000oi78snlmkcbv",
         scheduledDeparture: startOfHour(setHours(addDays(new Date(), 1), 15)),
         scheduledArrival: startOfHour(setHours(addDays(new Date(), 2), 15)),
+        units: {
+          create: {
+            registrationNumber: "registrationNumber",
+            type: "Car",
+            length: "100",
+          },
+        },
+      },
+      include: {
+        units: true,
       },
     });
     createVoyage ? res.status(202) : res.status(404);
