@@ -18,13 +18,6 @@ const handler: NextApiHandler = async (
         vesselId: "clmueiyyv0000oi78snlmkcbv",
         scheduledDeparture: startOfHour(setHours(addDays(new Date(), 1), 15)),
         scheduledArrival: startOfHour(setHours(addDays(new Date(), 2), 15)),
-        units: {
-          create: {
-            registrationNumber: "registrationNumber",
-            type: "Car",
-            length: "100",
-          },
-        },
       },
       include: {
         units: true,

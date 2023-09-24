@@ -16,8 +16,19 @@ import { Button } from "~/components/ui/button";
 import { TABLE_DATE_FORMAT } from "~/constants";
 import { toast } from "~/components/ui/use-toast";
 import { CreateVoyage } from "~/components/CreateVoyage";
-
+import React from "react";
+import {
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  Sheet,
+} from "~/components/ui/sheet";
+import type { Voyage } from "@prisma/client";
+import VoyageDetails from "~/components/VoyageDetails";
 export default function Home() {
+  const [openVoyageDetail, setOpenVoyageDetail] = React.useState(false);
+  const [voyageData, setVoyageData] = React.useState<any | undefined>();
   const { data: voyages } = useQuery<ReturnType>(["voyages"], () =>
     fetchData("voyage/getAll")
   );
@@ -74,7 +85,11 @@ export default function Home() {
             {voyages?.map((voyage) => (
               <TableRow
                 key={voyage.id}
-                onClick={() => console.log("Voyage Clicked***")} // to do Harshit
+                onClick={() => {
+                  setVoyageData(voyage);
+                  setOpenVoyageDetail(true);
+                  console.log("Voyage Clicked***", voyageData);
+                }} // to do Harshit
               >
                 <TableCell>
                   {format(
@@ -96,6 +111,17 @@ export default function Home() {
             ))}
           </TableBody>
         </Table>
+        <Sheet open={openVoyageDetail} onOpenChange={setOpenVoyageDetail}>
+          <SheetTrigger asChild>
+            <Button variant="outline">Open Sheet</Button>
+          </SheetTrigger>
+          <SheetContent side="top">
+            <SheetHeader>
+              {/* <SheetTitle>Voyage Details</SheetTitle> */}
+              <VoyageDetails voyageData={voyageData} />
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </Layout>
     </>
   );
