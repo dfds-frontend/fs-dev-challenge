@@ -37,6 +37,6 @@ model Unit {
   voyageId           String  
   type               String  
   length             String
-  registrationNumber String  
+  registrationNumber String  @unique
   Voyage             Voyage  @relation(fields: [voyageId], references: [id])  
 }

@@ -15,7 +15,9 @@ async function main() {
       name: "Pearl Seaways",
     },
   });
-
+  const registrationNumbers1 = [];
+  const registrationNumbers2 = [];
+  const registrationNumbers3 = [];
   // Seeding voyages
   for (let i = 0; i < 10; i++) {
     const departingFromCopenhagenVessel =
@@ -29,7 +31,13 @@ async function main() {
     const scheduledArrival = startOfHour(
       setHours(addDays(new Date(), i + 1), 9)
     );
-    const registrationNumber = `2023444A${Math.random()}${i}`;
+
+    const registrationNumber1 = `2023444A${Math.random()}${i}`;
+    const registrationNumber2 = `2023444B${Math.random()}${i}`;
+    const registrationNumber3 = `2023444C${Math.random()}${i}`;
+    registrationNumbers1.push(registrationNumber1);
+    registrationNumbers2.push(registrationNumber2);
+    registrationNumbers3.push(registrationNumber3);
 
     await prisma.voyage.create({
       data: {
@@ -40,7 +48,7 @@ async function main() {
         scheduledArrival,
         units: {
           create: {
-            registrationNumber: registrationNumber,
+            registrationNumber: registrationNumbers1[i] as string,
             type: "Car",
             length: "100",
           },
@@ -61,12 +69,12 @@ async function main() {
         units: {
           create: [
             {
-              registrationNumber: registrationNumber,
+              registrationNumber: registrationNumbers2[i]?.toString() as string,
               type: "Van",
               length: "50",
             },
             {
-              registrationNumber: registrationNumber,
+              registrationNumber: registrationNumbers3[i]?.toString() as string,
               type: "Truck",
               length: "200",
             },

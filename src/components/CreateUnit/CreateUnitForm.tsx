@@ -69,6 +69,7 @@ const CreateUnitForm = ({
           description: `Unit Created Successfully`,
         });
         await queryClient.invalidateQueries(["units"]);
+        await queryClient.invalidateQueries(["voyages"]);
       },
     }
   );
