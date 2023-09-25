@@ -25,7 +25,7 @@ import {
 
 const FormSchema = z.object({
   type: z.string(),
-  length: z.string().min(1).max(2),
+  length: z.string().min(1).max(5),
   registrationNumber: z.string().min(5).max(100),
 });
 
@@ -124,9 +124,9 @@ const CreateUnitForm = ({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="truck">Truck</SelectItem>
-                    <SelectItem value="car">Car</SelectItem>
-                    <SelectItem value="van">Van</SelectItem>
+                    <SelectItem value="Truck">Truck</SelectItem>
+                    <SelectItem value="Car">Car</SelectItem>
+                    <SelectItem value="Van">Van</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>
