@@ -19,6 +19,13 @@ import React from "react";
 import { cn } from "~/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "../ui/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const FormSchema = z
   .object({
@@ -87,7 +94,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
       data: {
         portOfLoading: formData.pol,
         portOfDischarge: formData.pod,
-        vesselId: "clmueiyyv0000oi78snlmkcbv", // to do create vessel first and link it
+        vesselId: formData.vessel,
         scheduledDeparture: formData.departure.toISOString(),
         scheduledArrival: formData.arrival.toISOString(),
       },
@@ -99,7 +106,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
   }
 
   return (
-    <div>
+    <div className="py-6">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -176,7 +183,9 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date < new Date("1900-01-01")}
+                      disabled={(date) =>
+                        date < new Date() || date < new Date("1900-01-01")
+                      }
                       initialFocus
                     />
                   </PopoverContent>
@@ -212,7 +221,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="vessel"
             render={({ field }) => (
@@ -223,6 +232,33 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
                 </FormControl>
 
                 <FormMessage />
+              </FormItem>
+            )}
+          /> */}
+          <FormField
+            control={form.control}
+            name="vessel"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Vessel</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Vessel" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="clmyq2p920000oio059z9nfjc">
+                      Crown Seaways
+                    </SelectItem>
+                    <SelectItem value="clmyq2p9c0001oio027279ocz">
+                      Pearl Seaways
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </FormItem>
             )}
           />
