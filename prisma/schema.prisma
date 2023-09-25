@@ -26,7 +26,7 @@ model Voyage {
   vesselId           String
   scheduledDeparture DateTime
   scheduledArrival   DateTime
-  vessel             Vessel   @relation(fields: [vesselId], references: [id])
+  vessel             Vessel   @relation(fields: [vesselId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   units              Unit[]
@@ -38,5 +38,5 @@ model Unit {
   type               String  
   length             String
   registrationNumber String  @unique
-  Voyage             Voyage  @relation(fields: [voyageId], references: [id])  
+  Voyage             Voyage  @relation(fields: [voyageId], references: [id], onDelete: Cascade, onUpdate: Cascade)  
 }

@@ -9,7 +9,6 @@ const handler: NextApiHandler = async (
   res: NextApiResponse<undefined>
 ) => {
   if (req.method === "POST") {
-    //const createVoyage = await prisma.voyage.create(JSON.parse(req.body));
     const createUnit = await prisma.unit.create(JSON.parse(req.body));
     createUnit ? res.status(202) : res.status(404);
     res.end();

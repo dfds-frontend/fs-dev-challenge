@@ -45,6 +45,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
     async () => {
       const response = await fetch(`/api/voyage/createVoyage`, {
         method: "POST",
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -86,7 +87,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
       data: {
         portOfLoading: formData.pol,
         portOfDischarge: formData.pod,
-        vesselId: "clmueiyyv0000oi78snlmkcbv",
+        vesselId: "clmueiyyv0000oi78snlmkcbv", // to do create vessel first and link it
         scheduledDeparture: formData.departure.toISOString(),
         scheduledArrival: formData.arrival.toISOString(),
       },
@@ -134,7 +135,9 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date < new Date("1900-01-01")}
+                      disabled={(date) =>
+                        date < new Date() || date < new Date("1900-01-01")
+                      }
                       initialFocus
                     />
                   </PopoverContent>
