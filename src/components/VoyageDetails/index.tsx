@@ -9,9 +9,11 @@ import {
 import { format } from "date-fns";
 import { TABLE_DATE_FORMAT } from "~/constants";
 import { Button } from "../ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "../ui/use-toast";
 import { CreateUnit } from "../CreateUnit";
+import { fetchData } from "~/utils";
+import React from "react";
 
 const VoyageDetails = ({
   voyageData,
@@ -20,7 +22,11 @@ const VoyageDetails = ({
   voyageData: any | undefined;
   setOpenVoyageDetail: any;
 }) => {
-  const { id, vessel, units } = voyageData;
+  const { id, vessel } = voyageData;
+
+  const { data: units } = useQuery(["units"], () =>
+    fetchData(`unit/getAll?id=${id}`)
+  );
 
   const queryClient = useQueryClient();
   const mutation = useMutation(
@@ -40,8 +46,7 @@ const VoyageDetails = ({
     },
     {
       onSuccess: async () => {
-        // await queryClient.invalidateQueries(["unit"]);
-        setOpenVoyageDetail(false);
+        await queryClient.invalidateQueries(["units"]);
         toast({
           title: "Success",
           description: `Unit deleted succesfully`,
@@ -53,6 +58,7 @@ const VoyageDetails = ({
   const handleDelete = (unitId: string) => {
     mutation.mutate(unitId);
   };
+
   return (
     <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center justify-center px-2">
       <div className="py-2.5 text-2xl">Vessel Details</div>

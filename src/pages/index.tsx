@@ -28,6 +28,7 @@ import VoyageDetails from "~/components/VoyageDetails";
 export default function Home() {
   const [openVoyageDetail, setOpenVoyageDetail] = React.useState(false);
   const [voyageData, setVoyageData] = React.useState<any | undefined>();
+
   const { data: voyages } = useQuery<ReturnType>(["voyages"], () =>
     fetchData("voyage/getAll")
   );
