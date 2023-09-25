@@ -91,13 +91,12 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
         scheduledArrival: formData.arrival.toISOString(),
       },
     };
-    console.log("payload1***", payload1);
     setPayload(payload1);
     handleCreate(payload1);
     // call create api now
     setOpen(false);
   }
-  console.log("payload***", payload);
+
   return (
     <div>
       <Form {...form}>
