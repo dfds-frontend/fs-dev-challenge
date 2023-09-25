@@ -11,9 +11,9 @@ import { TABLE_DATE_FORMAT } from "~/constants";
 import { Button } from "../ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "../ui/use-toast";
-import { CreateUnit } from "../CreateUnit";
 import { fetchData } from "~/utils";
 import React from "react";
+import CreateUnit from "../CreateUnit";
 
 const VoyageDetails = ({
   voyageData,

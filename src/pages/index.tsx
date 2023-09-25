@@ -15,19 +15,20 @@ import type { ReturnType } from "./api/voyage/getAll";
 import { Button } from "~/components/ui/button";
 import { TABLE_DATE_FORMAT } from "~/constants";
 import { toast } from "~/components/ui/use-toast";
-import { CreateVoyage } from "~/components/CreateVoyage";
+import CreateVoyage from "~/components/CreateVoyage";
 import React from "react";
 import {
   SheetTrigger,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   Sheet,
 } from "~/components/ui/sheet";
 import VoyageDetails from "~/components/VoyageDetails";
+import { IVoyage } from "~/types";
+
 export default function Home() {
   const [openVoyageDetail, setOpenVoyageDetail] = React.useState(false);
-  const [voyageData, setVoyageData] = React.useState<any | undefined>();
+  const [voyageData, setVoyageData] = React.useState<IVoyage | undefined>();
 
   const { data: voyages } = useQuery<ReturnType>(["voyages"], () =>
     fetchData("voyage/getAll")

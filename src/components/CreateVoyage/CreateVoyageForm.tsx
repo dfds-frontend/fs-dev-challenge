@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { addDays, format, setHours, startOfHour } from "date-fns";
+import { format } from "date-fns";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { ICreateVoyage } from "~/types";
 
 const FormSchema = z
   .object({
@@ -45,11 +46,10 @@ const FormSchema = z
     }
   );
 
-const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
-  const [payload, setPayload] = React.useState({});
+const CreateVoyageForm = ({ setOpen }: { setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    async () => {
+    async (payload: ICreateVoyage) => {
       const response = await fetch(`/api/voyage/createVoyage`, {
         method: "POST",
         body: JSON.stringify(payload),
@@ -75,22 +75,14 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
       },
     }
   );
-  const handleCreate = (payload: {
-    data: {
-      portOfLoading: string;
-      portOfDischarge: string;
-      vesselId: string;
-      scheduledDeparture: string;
-      scheduledArrival: string;
-    };
-  }) => {
-    mutation.mutate();
+  const handleCreate = (payload: ICreateVoyage) => {
+    mutation.mutate(payload);
   };
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
   function onSubmit(formData: z.infer<typeof FormSchema>) {
-    const payload1 = {
+    const payload = {
       data: {
         portOfLoading: formData.pol,
         portOfDischarge: formData.pod,
@@ -99,9 +91,7 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
         scheduledArrival: formData.arrival.toISOString(),
       },
     };
-    setPayload(payload1);
-    handleCreate(payload1);
-    // call create api now
+    handleCreate(payload);
     setOpen(false);
   }
 
@@ -221,20 +211,6 @@ const CreateVoyageForm = ({ setOpen }: { setOpen: any }) => {
               </FormItem>
             )}
           />
-          {/* <FormField
-            control={form.control}
-            name="vessel"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Vessel</FormLabel>
-                <FormControl>
-                  <Input placeholder="Vessel" {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="vessel"

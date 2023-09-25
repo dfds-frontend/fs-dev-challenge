@@ -12,7 +12,6 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React from "react";
-import { cn } from "~/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "../ui/use-toast";
 import {
@@ -22,6 +21,7 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select";
+import { ICreateUnit } from "~/types";
 
 const FormSchema = z.object({
   type: z.string(),
@@ -33,20 +33,12 @@ const CreateUnitForm = ({
   setOpen,
   voyageId,
 }: {
-  setOpen: any;
+  setOpen: (v: boolean) => void;
   voyageId: string;
 }) => {
-  const [payload, setPayload] = React.useState({});
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    async (payload: {
-      data: {
-        type: string;
-        length: string;
-        registrationNumber: string;
-        voyageId: string;
-      };
-    }) => {
+    async (payload: ICreateUnit) => {
       const response = await fetch(`/api/unit/createUnit`, {
         method: "POST",
         body: JSON.stringify(payload),
@@ -74,14 +66,7 @@ const CreateUnitForm = ({
     }
   );
 
-  const handleCreate = (payload: {
-    data: {
-      type: string;
-      length: string;
-      registrationNumber: string;
-      voyageId: string;
-    };
-  }) => {
+  const handleCreate = (payload: ICreateUnit) => {
     mutation.mutate(payload);
   };
 
@@ -98,7 +83,6 @@ const CreateUnitForm = ({
         voyageId: voyageId,
       },
     };
-    setPayload(createUnitPayload);
     handleCreate(createUnitPayload);
     setOpen(false);
   }
