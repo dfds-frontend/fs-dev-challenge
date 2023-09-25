@@ -61,7 +61,7 @@ const VoyageDetails = ({
 
   return (
     <div className="mx-auto flex w-full max-w-screen-xl flex-col items-center justify-center px-2">
-      <div className="py-2.5 text-2xl">Vessel Details</div>
+      <div className="py-2.5 text-2xl">Voyage Details</div>
       <div className="flex w-3/5 flex-row py-2.5">
         <div className="px-3.5 text-lg">
           Route : {voyageData?.portOfLoading} - {voyageData?.portOfDischarge}

@@ -100,11 +100,10 @@ export default function Home() {
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
                 <TableCell
-                  className="underline"
+                  className="cursor-pointer underline"
                   onClick={() => {
                     setVoyageData(voyage);
                     setOpenVoyageDetail(true);
-                    console.log("Voyage Clicked***", voyageData);
                   }}
                 >
                   {voyage.vessel.name}
