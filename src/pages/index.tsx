@@ -53,6 +53,10 @@ export default function Home() {
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries(["voyages"]);
+        toast({
+          title: "Delete Success",
+          description: `Voayge Deleted Successfully`,
+        });
       },
     }
   );
